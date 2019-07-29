@@ -4,48 +4,35 @@
 const url = 'https://newsapi.org/v2/top-headlines?' +
           'country=us&' +
           'apiKey=b1d2a2d19a1c47fd822364fb24e03910';//API Key for NewsAPI.org
-STORAGE_KEY = 'articles'
+const STORAGE_KEY = 'articles'
 /*--------------------------------------------------------------------
 * store to localStorage  
 --------------------------------------------------------------------*/
-const something = 'something'
 function saveToStorage(jsonArticleData){
-    const savedArticles = jsonArticleData.articles
+    const savedArticles = JSON.stringify(jsonArticleData.articles)
     localStorage.setItem(STORAGE_KEY, savedArticles)
 }
 
 /*--------------------------------------------------------------------
-* Get data!   Date.now()  object.keys ///
-
-
-
-idea --> use an input box to change the iframe. 
-
-<div id='privacy-enable'> 
-    <div id='privacy-disable>
-        <button id='back'>Back<button><button id='forward'>Forward<button> 
-        <label>URL/Search</label> <input></input>
-            //inputBox changes the iframe Source 
-        <iframe> </iframe> 
-    </div>
-</div>
-
-
-
+*Note:   We can alter the get storage key to a time, then compare it so that we can ensure that there is daily refresh of data.  
+*Get data!   Date.now()  object.keys ///
+*idea --> use an input box to change the iframe. 
+*Fetch Article Data out of NewsAPI.org 
 --------------------------------------------------------------------*/
 
 async function fetchMyData(){
+    /* Ternary identifies whether or not something is in local storage. If there is, we will work out of localStorage. 
+    if there isnt anything in localStorage then we will make a call to the API url to search for data. 
+    */
     const articleData = localStorage.getItem(STORAGE_KEY) ? 
-    json.parse(localStorage.getItem(STORAGE_KEY)):(await fetch(url));
-    const jsonArticleData = await articleData.json();
-    // console.log(jsonArticleData.articles[0])
-    saveToStorage(JSON.stringify(jsonArticleData));
-    console.log('i made it through the script')
+    JSON.parse(localStorage.getItem(STORAGE_KEY)):await fetch(url).then(results=>results.json());   
+    saveToStorage(articleData);
+    return articleData
 };
 fetchMyData()
 
     
 
 /*--------------------------------------------------------------------
-*  Imgur API works to provide data.   Quality appears to be satisfactory. 
+* Append Data 
 --------------------------------------------------------------------*/

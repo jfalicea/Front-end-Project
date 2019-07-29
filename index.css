@@ -1,0 +1,18 @@
+.privacy-enable{
+    display: flex;
+    background-color: green;
+    border: 1px, solid, green;
+    /* width: auto; */
+    justify-content: center;
+}
+
+
+.privacy-disable{
+    background: 'yellow';
+    border: 1px, solid, black;
+    width: auto;
+}
+
+.privacy-disable>button{
+    color: blue;
+}
