@@ -1,0 +1,184 @@
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+
+}
+
+ul {
+    list-style: none;
+}
+
+li {
+    padding: 5px;
+}
+
+img {
+    width: 40%;
+    max-width: 100%;
+}
+
+#navigation {
+    width: 100%;
+    background-color: #000;
+    color: #fff;
+}
+
+.buttons {
+    padding: 5px;
+
+}
+/****** GRID TEMPLATE AREAS ******/
+
+#title {
+    grid-area: title;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#homebutton {
+    grid-area: home;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#memeicon {
+    grid-area: memeicon;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#top_headlines{
+    grid-area: headline;
+}
+
+#entertainment {
+    grid-area: entertainment;
+}
+
+#sports {
+    grid-area: sports;
+}
+
+#tech {
+    grid-area: tech;
+}
+
+.hidden {
+    grid-area: hidden;
+}
+
+.arrowleft{
+    grid-area: left;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    
+}
+
+.arrowright {
+    grid-area: right;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+   
+}
+
+.iframe {
+    grid-area: iframe;
+    height: 70vh;
+}
+
+#footer {
+    background-color: #FFF082;
+    margin: auto;
+    height: auto;
+    padding: 20px;
+    text-align: center;
+
+}
+
+
+
+
+/***** GRID *****/
+.navigationbuttons {
+    width: 100%;
+    padding: 5px;
+    margin: auto;
+    display: grid;
+
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-areas: 
+    ". title title ."
+    "home memeicon . hidden"
+    
+}
+
+.contContainer {
+    margin: auto;
+    padding: 20px 0;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+    grid-template-areas: 
+    "left left iframe right right"
+
+}
+
+
+@media screen and (max-width: 480px){
+    .hidden {
+        display: none;
+    }
+}
+
+
+@media screen and (min-width: 480px) {
+    #title {
+        font-size: 1.5rem;
+    }
+
+}
+
+@media screen and (min-width: 768px) {
+    .navigationbuttons {
+        width: 90%;
+        grid-template-columns: 2fr  auto repeat(6, 1fr);
+        grid-template-rows: 1fr;
+        grid-template-areas: 
+        "title title home memeicon . . . ."
+        ". . . . . . . ."
+    }
+
+    .contContainer {
+        width: 90%;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+        grid-template-rows: 1fr;
+        grid-template-areas: 
+        ". left iframe right ."
+    }
+
+    .iframe {
+       margin: 50px 0;
+    }
+    
+    #title {
+        font-size: 2rem;
+    }
+
+    .hidden {
+        display: none;
+    }
+}

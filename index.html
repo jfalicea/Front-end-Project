@@ -4,32 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../Front-end-Project/css/index.css">
     <title>Document</title>
 </head>
 <body>
     <main id="mainpage">
         <nav id="navigation">
             <ul class="navigationbuttons">
-                <li id="homebutton" class="buttons">
-                </li>
-                <li id="memecover" class="buttons">
-                </li>
-                <li id="Top_Headlines" class="buttons"></li>
-                <li id="entertainment" class="buttons"></li>
-                <li id="sports" class="buttons"></li>
-                <li id="tech" class="buttons"></li>
+                <li id="title" class="button">Amemezing News</li>
+                <li id="homebutton" class="buttons">Home</li>
+                <li id="memeicon" class="buttons"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Emojione1_1F575.svg/1024px-Emojione1_1F575.svg.png" alt=""></li>
+            </ul>
+             <ul class="hidden">
+                <li id="top_headlines" class="buttons">TopHeadlines</li>
+                <li id="entertainment" class="buttons">Entertainment</li>
+                <li id="sports" class="buttons">Sports</li>
+                <li id="tech" class="buttons">Tech</li>
             </ul>
         </nav>
-        <div class="contContainer">
+        <div id="parent" class="contContainer">
             
-            <div class="arrowleft"></div>
-            <iframe>
+            <div class="arrowleft"><img src="../Front-end-Project/img/arrow-1314470_640 left.png" alt="arrow"></div>
+            <iframe class="iframe">
 
             </iframe>
-            <div class="arrowright"></div>
+            <div class="arrowright"><img src="../Front-end-Project/img/arrow-1314470_640.png" alt="arrow"></div></div>
         </div>
-        <footer>
-            
+        <footer id="footer">
+            <p>News Provided by <a href="https://api.org">newsapi.org</a> </p>
         </footer>
     </main>
     <script src="scripts/index.js"></script>
