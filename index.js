@@ -4,6 +4,7 @@
 *Get data!   Date.now()  object.keys ///
 *idea --> use an input box to change the iframe. 
 *Fetch Article Data out of NewsAPI.org 
+*Need to figure out how to hand errors. 
 --------------------------------------------------------------------*/
 
 
@@ -25,31 +26,43 @@ function saveToStorage(jsonArticleData){
     const savedArticles = JSON.stringify(jsonArticleData.articles)
     localStorage.setItem(STORAGE_KEY, savedArticles)
 }
+
 /*--------------------------------------------------------------------
 *FUNCTION - GET DATA FROM NEWS API.   
---------------------------------------------------------------------*/
-/* -------------------------------------------------------------------------------------------
 This ternary identifies whether or not there is already saved Article Data in local storage. 
 a. If there is, we will work out of localStorage. 
 b. If there isnt anything in localStorage then 
-1. we will make a call to the API url to search for data. 
-2. THEN we will send the results to be json-ified 
-3. THEN we will send the jsonified-data to localStorage
-
+    1. we will make a call to the API url to search for data. 
+    2. THEN we will send the results to be json-ified 
+    3. THEN we will send the jsonified-data to localStorage
 c. FINALLY we return the array of article Data. 
 -------------------------------------------------------------------------------------------*/
 
-async function fetchMyData(){
+const fetchMyData = async()=>{
     const articleData = localStorage.getItem(STORAGE_KEY) ? JSON.parse(localStorage.getItem(STORAGE_KEY))
         : await fetch(urlEndpoints.newsData)
             .then(results=>results.json())
             .then(jsonifiedData=>saveToStorage(jsonifiedData));   
-    return articleData
-};
+    // return articleData
+
+
+/*--------------------------------------------------------------------
+* Function - Append Article to DOM
+****** big friggin error here... takes TWO REFRESHES to get the data on the screen when there is NO data in localStorage. 
+*  note here:  I did a forEach here to show that everything is on the DOM.  We can easily get 
+--------------------------------------------------------------------*/
+    articleData.forEach(article=> {
+        const section = document.createElement('section')
+        section.innerHTML = 
+        `<a href=${article.url}>Article Source: ${article.source.name}</a><br />
+        Article Description: ${article.description}<br /><br />`
+        document.body.appendChild(section)  
+    });
+}
 fetchMyData()//when we append data lets use this function to get an array of of objects! 
+
+
 
     
 
-/*--------------------------------------------------------------------
-* Append Data to DOM
---------------------------------------------------------------------*/
+
