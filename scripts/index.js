@@ -13,7 +13,7 @@
 --------------------------------------------------------------------*/
 const urlEndpoints = {
     newsData: `https://newsapi.org/v2/top-headlines?country=us&apiKey=b1d2a2d19a1c47fd822364fb24e03910`, //API Key for NewsAPI.org
-    memeData: `https://api.imgflip.com/get_memes`,
+    memeData: `https://meme-api.herokuapp.com/gimme`,
 };
 /*--------------------------------------------------------------------
 * Storage Key Variable.   #global_varible 
