@@ -29,6 +29,8 @@ function saveToStorage(jsonArticleData){
     return jsonArticleData.articles;
 }
 
+
+
 /*--------------------------------------------------------------------
 *FUNCTION - GET DATA FROM NEWS API.   
 This ternary identifies whether or not there is already saved Article Data in local storage. 
@@ -63,6 +65,7 @@ const fetchMyData = async()=>{
 
 }
 fetchMyData()
+
 
 
 
