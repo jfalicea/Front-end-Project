@@ -18,7 +18,7 @@ const urlEndpoints = {
 /*--------------------------------------------------------------------
 * Storage Key Variable.   #global_varible 
 --------------------------------------------------------------------*/
-const STORAGE_KEY = 'articles';
+const STORAGE_KEY = 'articles'; // need to add time-bomb key function here!
 const MEME_STORAGE_KEY = 'memes'
 /*--------------------------------------------------------------------
 * FUNCTION - store Article Data to localStorage. 
@@ -29,6 +29,11 @@ function saveToStorage(jsonArticleData){
     return jsonArticleData.articles;
 }
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> seanbranch
 /*--------------------------------------------------------------------
 *FUNCTION - GET DATA FROM NEWS API.   
 This ternary identifies whether or not there is already saved Article Data in local storage. 
@@ -45,7 +50,9 @@ const fetchMyData = async()=>{
         : await fetch(urlEndpoints.newsData)
             .then(results=>results.json())
             .then(jsonifiedData=>saveToStorage(jsonifiedData));   
-    // const memeData = local
+    
+        const memeData = await fetch(urlEndpoints.memeData).then(results=>results.json())
+        console.log(articleData)
 
 
 /*--------------------------------------------------------------------
@@ -66,6 +73,10 @@ fetchMyData()
 
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> seanbranch
     
 
 
