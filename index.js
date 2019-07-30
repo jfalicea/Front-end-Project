@@ -25,6 +25,7 @@ const STORAGE_KEY = 'articles';
 function saveToStorage(jsonArticleData){
     const savedArticles = JSON.stringify(jsonArticleData.articles)
     localStorage.setItem(STORAGE_KEY, savedArticles)
+    return jsonArticleData.articles;
 }
 
 /*--------------------------------------------------------------------
@@ -43,23 +44,24 @@ const fetchMyData = async()=>{
         : await fetch(urlEndpoints.newsData)
             .then(results=>results.json())
             .then(jsonifiedData=>saveToStorage(jsonifiedData));   
-    // return articleData
+
 
 
 /*--------------------------------------------------------------------
 * Function - Append Article to DOM
-****** big friggin error here... takes TWO REFRESHES to get the data on the screen when there is NO data in localStorage. 
 *  note here:  I did a forEach here to show that everything is on the DOM.  We can easily get 
 --------------------------------------------------------------------*/
+
     articleData.forEach(article=> {
-        const section = document.createElement('section')
+        const section = document.createElement('section');
         section.innerHTML = 
         `<a href=${article.url}>Article Source: ${article.source.name}</a><br />
-        Article Description: ${article.description}<br /><br />`
-        document.body.appendChild(section)  
+        Article Description: ${article.description}<br /><br />`;
+        document.body.appendChild(section)  ;
     });
+
 }
-fetchMyData()//when we append data lets use this function to get an array of of objects! 
+fetchMyData()
 
 
 
