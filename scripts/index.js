@@ -13,12 +13,12 @@
 --------------------------------------------------------------------*/
 const urlEndpoints = {
     newsData: `https://newsapi.org/v2/top-headlines?country=us&apiKey=b1d2a2d19a1c47fd822364fb24e03910`, //API Key for NewsAPI.org
-    memeData: `https://api.imgflip.com/get_memes`,
+    memeData: `https://meme-api.herokuapp.com/gimme`,
 };
 /*--------------------------------------------------------------------
 * Storage Key Variable.   #global_varible 
 --------------------------------------------------------------------*/
-const STORAGE_KEY = 'articles';
+const STORAGE_KEY = 'articles'; // need to add time-bomb key function here!
 const MEME_STORAGE_KEY = 'memes'
 /*--------------------------------------------------------------------
 * FUNCTION - store Article Data to localStorage. 
@@ -50,7 +50,9 @@ const fetchMyData = async()=>{
         : await fetch(urlEndpoints.newsData)
             .then(results=>results.json())
             .then(jsonifiedData=>saveToStorage(jsonifiedData));   
-    // const memeData = local
+    
+        const memeData = await fetch(urlEndpoints.memeData).then(results=>results.json())
+        console.log(articleData)
 
 
 /*--------------------------------------------------------------------
