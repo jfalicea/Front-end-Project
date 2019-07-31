@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Libre+Franklin&display=swap');
+
 *, *::before, *::after {
     margin: 0;
     padding: 0;
@@ -7,6 +9,7 @@
 body {
     margin: 0;
     padding: 0;
+    font-family: 'Libre Franklin', sans-serif;
 
 }
 
@@ -23,59 +26,7 @@ img {
     max-width: 100%;
 }
 
-#navigation {
-    width: 100%;
-    background-color: #000;
-    color: #fff;
-}
 
-.buttons {
-    padding: 5px;
-
-}
-/****** GRID TEMPLATE AREAS ******/
-
-#title {
-    grid-area: title;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-#homebutton {
-    grid-area: home;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-#memeicon {
-    grid-area: memeicon;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-#top_headlines{
-    grid-area: headline;
-}
-
-#entertainment {
-    grid-area: entertainment;
-}
-
-#sports {
-    grid-area: sports;
-}
-
-#tech {
-    grid-area: tech;
-}
-
-.hidden {
-    grid-area: hidden;
-}
 
 .arrowleft{
     grid-area: left;
@@ -107,23 +58,87 @@ img {
 
 }
 
+/******** NAVIGATION ********/
 
-
+.overlay {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0, 0.9);
+    overflow-x: hidden;
+    transition: 0.5s;
+  }
+  
+  .overlay-content {
+    position: relative;
+    top: 25%;
+    width: 100%;
+    text-align: center;
+    margin-top: 30px;
+  }
+  
+  .overlay a {
+    padding: 8px;
+    text-decoration: none;
+    font-size: 36px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+  }
+  
+  .overlay a:hover, .overlay a:focus {
+    color: #f1f1f1;
+  }
+  
+  .overlay .closebtn {
+    position: absolute;
+    top: 20px;
+    right: 45px;
+    font-size: 60px;
+  }
+  
 
 /***** GRID *****/
-.navigationbuttons {
-    width: 100%;
-    padding: 5px;
-    margin: auto;
-    display: grid;
 
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
+
+.grid {
+    padding-top: 15px;
+    box-shadow: 1px 1px 20px 1px black;
+    display: grid;
+    grid-template-columns: repeat(5,1fr);
+    grid-template-rows: repeat(2, auto);
     grid-template-areas: 
-    ". title title ."
-    "home memeicon . hidden"
+    ". title title title ."
+    "hamburger . . . icon"
+    ". . . . . "
+}
+
+.title {
+    grid-area: title;
+    align-items: center;
+    justify-self: center;
+    text-transform: uppercase;
+}
+
+.hamburger {
+    grid-area: hamburger;
+    font-size: 2rem;
+    padding: 10px;
+}
+
+.icon {
+    grid-area: icon;
+    align-self: center;
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 10px;
     
 }
+
 
 .contContainer {
     margin: auto;
@@ -139,28 +154,24 @@ img {
 
 
 @media screen and (max-width: 480px){
-    .hidden {
-        display: none;
+
+    .overlay a {
+        font-size: 20px;
+    }
+    .overlay .closebtn {
+    font-size: 40px;
+    top: 15px;
+    right: 35px;
+    }
+
+    .title > h1 {
+        font-size: 1.3rem;
     }
 }
 
 
-@media screen and (min-width: 480px) {
-    #title {
-        font-size: 1.5rem;
-    }
-
-}
 
 @media screen and (min-width: 768px) {
-    .navigationbuttons {
-        width: 90%;
-        grid-template-columns: 2fr  auto repeat(6, 1fr);
-        grid-template-rows: 1fr;
-        grid-template-areas: 
-        "title title home memeicon . . . ."
-        ". . . . . . . ."
-    }
 
     .contContainer {
         width: 90%;
@@ -174,11 +185,12 @@ img {
        margin: 50px 0;
     }
     
-    #title {
+    .hamburger {
+        font-size: 3.3rem;
+    }
+
+    .title > h1 {
         font-size: 2rem;
     }
 
-    .hidden {
-        display: none;
-    }
 }
