@@ -4,27 +4,46 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="css/index.css">
-    <title>Document</title>
+<!--     <link rel="stylesheet" href="css/index.css"> -->
+
+    <link rel="stylesheet" href="../Front-end-Project/css/index.css">
+    <title>Amemezing News</title>
 </head>
 <body>
-    <main id="mainpage">
-        <nav id="navigation">
-            <ul class="navigationbuttons">
-                <li id="title" class="button">Amemezing News</li>
-                <li id="homebutton" class="buttons">Home</li>
-                <li id="memeicon" class="buttons"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Emojione1_1F575.svg/1024px-Emojione1_1F575.svg.png" alt=""></li>
-            </ul>
-             <ul class="hidden">
-                <li id="top_headlines" class="buttons">TopHeadlines</li>
-                <li id="entertainment" class="buttons">Entertainment</li>
-                <li id="sports" class="buttons">Sports</li>
-                <li id="tech" class="buttons">Tech</li>
-            </ul>
-        </nav>
+
+<main>
+<div class="grid">
+
+    <div class="title">
+        <h1>Amemezing News</h1>
+    </div>
+
+    <div id="myNav" class="overlay">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+            <div class="overlay-content">
+                <a href="#">Home</a>
+                <a href="#">Top Headlines</a>
+                <a href="#">Entertainment</a>
+                <a href="#">Sports</a>
+                <a href="#">Tech</a>
+            </div>
+    </div>
+
+    <span class="hamburger" onclick="openNav()">&#9776;</span>
+    
+    <div class="icon">
+        <img src="../Front-end-Project/img/icon.png" alt="icon">
+    </div>
+
+</div>
+
         <div id="parent" class="contContainer">
+
+            <div class="arrowleft"><img src="../Front-end-Project/img/arrow-1314470_640 left.png" alt="arrow"></div>
+
             
-            <div class="arrowleft"><img src="img/arrow-1314470_640 left.png" alt="arrow"></div>
+<!--             <div class="arrowleft"><img src="img/arrow-1314470_640 left.png" alt="arrow"></div> -->
+
             <iframe class="iframe">
 
             </iframe>

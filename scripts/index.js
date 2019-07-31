@@ -30,7 +30,6 @@ function saveToStorage(jsonArticleData){
 }
 
 
-
 /*--------------------------------------------------------------------
 *FUNCTION - GET DATA FROM NEWS API.   
 This ternary identifies whether or not there is already saved Article Data in local storage. 
@@ -70,8 +69,15 @@ fetchMyData()
 
 
 
-    
 
+/* Toggle between showing and hiding the navigation menu links when the user clicks on the hamburger menu / bar icon */
+function openNav() {
+    document.getElementById("myNav").style.width = "100%";
+  }
+  
+  function closeNav() {
+    document.getElementById("myNav").style.width = "0%";
+  }
 
 // get the modal
 const modal = document.getElementById("myModal");
