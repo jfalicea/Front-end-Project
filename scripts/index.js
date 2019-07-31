@@ -29,6 +29,7 @@ function saveToStorage(jsonArticleData){
     return jsonArticleData.articles;
 }
 
+
 /*--------------------------------------------------------------------
 *FUNCTION - GET DATA FROM NEWS API.   
 This ternary identifies whether or not there is already saved Article Data in local storage. 
@@ -78,3 +79,17 @@ function openNav() {
     document.getElementById("myNav").style.width = "0%";
   }
 
+// get the modal
+const modal = document.getElementById("myModal");
+//get the <span> element that closes the modal
+const span = document.getElementsByClassName("close")[0];
+//when the user clicks on span(x), close the modal
+span.onclick = function() {
+    modal.style.display ="none";
+}
+//when the user clicks anywhere outside of the modal, close the modal
+window.onclick=function(event) {
+    if (event.target ==modal) {
+        modal.style.display = "none";
+    }
+}
