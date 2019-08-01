@@ -13,7 +13,7 @@
 --------------------------------------------------------------------*/
 const urlEndpoints = {
     newsData: `https://newsapi.org/v2/top-headlines?country=us&apiKey=b1d2a2d19a1c47fd822364fb24e03910`, //API Key for NewsAPI.org
-    memeData: `https://meme-api.herokuapp.com/gimme`,
+    memeDataSource: `https://meme-api.herokuapp.com/gimme`,
 };
 /*--------------------------------------------------------------------
 * Storage Key Variable.   #global_varible 
@@ -47,7 +47,7 @@ const fetchMyData = async()=>{
             .then(results=>results.json())
             .then(jsonifiedData=>saveToStorage(jsonifiedData));   
     
-        const memeData = await fetch(urlEndpoints.memeData).then(results=>results.json())
+        const memeData = await fetch(urlEndpoints.memeDataSource).then(results=>results.json())
         console.log(articleData)
 
 
@@ -62,10 +62,36 @@ const fetchMyData = async()=>{
         `<a href=${article.url}>Article Source: ${article.source.name}</a><br />
         Article Description: ${article.description}<br /><br />`;
         document.body.appendChild(section)  ;
+    
+    
+    
     });
-
 }
 fetchMyData()
+
+
+function getMeme() {
+    const memebtn = document.querySelector(".icon"); // Get the button that opens the modal
+    const mememodal = document.querySelector("#memeModal"); // Get the modal
+   
+    memebtn.onclick = function(){
+        mememodal.style.display ="block"; 
+    }
+    //When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+     if (event.target == mememodal) {
+       mememodal.style.display = "none";
+     }
+   }
+ 
+ const span1 = document.querySelector(".exit"); // Get the <span> element that closes the modal)
+   span1.onclick = function() {
+     mememodal.style.display = "none";
+   }
+ 
+} getMeme();
+
+
 
 
 
@@ -89,7 +115,7 @@ span.onclick = function() {
 }
 //when the user clicks anywhere outside of the modal, close the modal
 window.onclick=function(event) {
-    if (event.target ==modal) {
+    if (event.target == modal) {
         modal.style.display = "none";
     }
 }
