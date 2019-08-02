@@ -27,11 +27,12 @@ Amemezing News fetches 2 APIs. When users enter the website, they will see rando
  
 ## Prerequisites
 ### API Links
-News API: https://newsapi.org/v2/top-headlines?country=us&apiKey=b1d2a2d19a1c47fd822364fb24e03910<br/>
+News API: https://newsapi.org/<br/>
+API Key: https://newsapi.org/v2/top-headlines?country=us&apiKey=b1d2a2d19a1c47fd822364fb24e03910<br/>
 Meme API: https://meme-api.herokuapp.com/gimme<br/>
 
 
-## Languages Used
+### Languages
 <ul>
   <li>HTML</li>
   <li>CSS</li>
