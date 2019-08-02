@@ -9,15 +9,18 @@
     <link rel="stylesheet" href="../Front-end-Project/css/index.css">
     <title>Amemezing News</title>
 </head>
-<body>
 
+<body>
 <main>
-<div class="grid">
+<!-- START OF HEADER CONTAINER // NAVIGATION --> 
+<header>
+<div class="grid"> <!-- PARENT GRID -->
 
     <div class="title">
         <h1>Amemezing News</h1>
     </div>
 
+    <!-- START OF NAVIGATION -->
     <div id="myNav" class="overlay">
             <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
             <div class="overlay-content">
@@ -28,50 +31,73 @@
                 <a href="#">Tech</a>
             </div>
     </div>
+    <!-- END OF NAVIGATION -->
 
+    <!-- HAMBURGER ICON -->
     <span class="hamburger" onclick="openNav()">&#9776;</span>
-    
-    <!-- Trigger/Open The Modal -->
-    <div class="icon"><img src="./img/news-97862_1280.png" alt="icon"></div>
-    <!-- The Modal -->
-    <div id="memeModal" class="popup">
+
+    <!-- TRIGGER // OPEN THE MODAL -->
+    <div class="icon">
+        <img src="./img/news-97862_1280.png" alt="icon">
+    </div>
+
+    <!-- NEWS MODAL -->
+    <div id="newsModal" class="popup">
         <!-- Modal content -->
-            <div class="meme-content">
+            <div class="news-content">
                 <span class="exit">&times;</span>
             </div>
-    </div>    
+    </div>
+    <!-- END OF NEWS MODAL -->
 
-</div>
+</div> <!-- END OF PARENT GRID -->
+</header>
+<!-- END OF HEADER CONTAINER // NAVIGATION -->
 
-        <div id="parent" class="contContainer">
+<!-- START OF CONTAINER -->
+<div id="parent" class="contContainer">
 
-            <div id='leftbtn' class="arrowleft"><img src="../Front-end-Project/img/arrow-1314470_640 left.png" alt="arrow"></div>
-
-            
-            <!-- Meme container -->
-            <div id="memeImg" class='memes'>
-                
+    <!-- LEFT ARROW -->
+            <div id='leftbtn' class="arrowleft">
             </div>
 
-            <div id='rightbtn' class="arrowright"><img src="img/arrow-1314470_640.png" alt="arrow"></div></div>
-        </div>
-        <div id="myModal" class="modal">
+    <!-- MEME CONTAINER // Where the meme will display -->
+            <div id="memeImg" class='memes'>
+            </div>
+
+    <!-- RIGHT ARROW -->
+            <div id='rightbtn' class="arrowright">
+            </div>
+
+</div>
+ <!-- END OF CONTAINER-->   
+
+
+<!-- START OF MODAL -->
+<div id="myModal" class="modal">
+
+        <!-- START OF MODAL CONTENT -->
         <div class="modal-content">
             <div class="modal-header">
                 <span class="close">&times;</span>
-                <h4>Welcome to Amemezing News</h4>
+                <h1>Welcome to Amemezing News</h1>
+                <h4>In order to hide the content that you're viewing, please click the icon next to the home button.<br/>
+                    This will disappear once you click/touch out.</h4>
+                <p><strong>DISCLAIMER:</strong> Memes are randomly generated. We have no control over meme content. Some images are NSFW. </p>
             </div>
-            <div class="modal-body">
-                <p>in order to hide the content that you're viewing, please click the icon</p>
-                <p>next to the home button.</p>
-            </div>
-            <div class="modal-footer"><h4>This will disappear once you click/touch out.</h4></div>
         </div>
-        </div>
-        <footer id="footer">
+        <!-- END OF MODAL CONTENT-->
+</div>
+<!-- END OF MODAL -->
+
+<!-- FOOTER -->
+    <footer id="footer">
             <p>News Provided by <a href="https://api.org">newsapi.org</a> </p>
-        </footer>
-    </main>
+    </footer>
+    
+
+</main>
+
     <script src="scripts/index.js"></script>
 </body>
 </html>

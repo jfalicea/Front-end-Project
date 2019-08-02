@@ -39,7 +39,9 @@ function saveMeme(jsonMemeData){
     const savedMemes = JSON.stringify(addToArray(jsonMemeData.url))
     localStorage.setItem(MEME_STORAGE_KEY, savedMemes)
     return jsonMemeData;
+
 }
+
 function saveTech(jsonTechnoData){
     const savedTechArticles = JSON.stringify(jsonTechnoData.articles)
     localStorage.setItem(TECH_STORAGE_KEY, savedTechArticles)
@@ -54,7 +56,7 @@ function saveSports(jsonSportData){
     const savedSportData = JSON.stringify(jsonSportData.articles)
     localStorage.setItem(SPORT_STORAGE_KEY, savedSportData)
     return jsonSportData.articles;
-
+    }
 }
 
 /*--------------------------------------------------------------------
@@ -90,16 +92,25 @@ const fetchMyData = async()=>{
 function addArticle(articleData){
     articleData.forEach(article=> {
         const section = document.createElement('section');
-        const memeContent = document.querySelector('.meme-content')
+        const newsContent = document.querySelector('.news-content')
         section.innerHTML = 
         `<a href=${article.url}>Article Source: ${article.source.name}</a><br />
         Article Description: ${article.description}<br /><br />`;
+
+        newsContent.appendChild(section)
+
         memeContent.appendChild(section)
+
     });
 }
 
 
+
+
+const fetchTechData = async()=>{
+
 const fetchSubjectData = async()=>{
+
     const technoData = localStorage.getItem(TECH_STORAGE_KEY) ? JSON.parse(localStorage.getItem(TECH_STORAGE_KEY))
         : await fetch(urlEndpoints.techData)
             .then(results=>results.json())
@@ -114,28 +125,37 @@ const fetchSubjectData = async()=>{
         : await fetch(urlEndpoints.sportsData)
             .then(results=>results.json())
             .then(jsonifiedData=>saveSports(jsonifiedData));
+
+        console.log(sportyData)
+
+    }    
+
+fetchTechData();
+
+
         //console.log(sportyData)
 }
 fetchSubjectData()
 
+
 function getNews() {
     const memebtn = document.querySelector(".icon"); // Get the button that opens the modal
-    const mememodal = document.querySelector("#memeModal"); // Get the modal
+    const newsmodal = document.querySelector("#newsModal"); // Get the modal
    
     memebtn.onclick = function(){
-        mememodal.style.display ="block"; 
-        mememodal.innerHTML = addArticle();
+        newsmodal.style.display ="block"; 
+        newsmodal.innerHTML = addArticle();
     }
     //When the user clicks anywhere outside of the modal, close it
     window.onclick = function(event) {
      if (event.target == mememodal) {
-       mememodal.style.display = "none";
+       newsmodal.style.display = "none";
      }
    }
  
  const span1 = document.querySelector(".exit"); // Get the <span> element that closes the modal)
    span1.onclick = function() {
-     mememodal.style.display = "none";
+     newsmodal.style.display = "none";
    }
 } getNews();
 
@@ -167,6 +187,7 @@ window.onclick=function(event) {
         modal.style.display = "none";
     }
 }
+
 function addToArray(jsonMemeData){
     const memeArray = JSON.parse(localStorage.getItem(MEME_STORAGE_KEY)) || []
     memeArray.push(jsonMemeData);
@@ -210,4 +231,10 @@ leftbtn();
     c. onces you go back... needs to increment in order before it gets new meme. 
 
 2.  leftbtn just needs to go to localStorage 
-a. retrieve last img */
+
+    a. retrieve last img 
+
+
+*/
+
+
