@@ -2,7 +2,6 @@
 *Notes:   
 *We can alter the get storage key to a time, then compare it so that we can ensure that there is daily refresh of data.  
 *Get data!   Date.now()  object.keys ///
-*idea --> use an input box to change the iframe. 
 *Fetch Article Data out of NewsAPI.org 
 *Need to figure out how to hand errors. 
 --------------------------------------------------------------------*/
@@ -35,6 +34,12 @@ function saveToStorage(jsonArticleData){
     localStorage.setItem(STORAGE_KEY, savedArticles)
     return jsonArticleData.articles;
 }
+
+function saveMeme(jsonMemeData){
+    const savedMemes = JSON.stringify(addToArray(jsonMemeData.url))
+    localStorage.setItem(MEME_STORAGE_KEY, savedMemes)
+    return jsonMemeData;
+=======
 function saveTech(jsonTechnoData){
     const savedTechArticles = JSON.stringify(jsonTechnoData.articles)
     localStorage.setItem(TECH_STORAGE_KEY, savedTechArticles)
@@ -49,6 +54,7 @@ function saveSports(jsonSportData){
     const savedSportData = JSON.stringify(jsonSportData.articles)
     localStorage.setItem(SPORT_STORAGE_KEY, savedSportData)
     return jsonSportData.articles;
+
 }
 
 /*--------------------------------------------------------------------
@@ -63,32 +69,36 @@ c. FINALLY we return the array of article Data.
 -------------------------------------------------------------------------------------------*/
 
 const fetchMyData = async()=>{
-    const articleData = localStorage.getItem(STORAGE_KEY) ? JSON.parse(localStorage.getItem(STORAGE_KEY))
+    let articleData = localStorage.getItem(STORAGE_KEY) ? JSON.parse(localStorage.getItem(STORAGE_KEY))
         : await fetch(urlEndpoints.newsData)
             .then(results=>results.json())
             .then(jsonifiedData=>saveToStorage(jsonifiedData));   
     
-        const memeData = await fetch(urlEndpoints.memeDataSource).then(results=>results.json())
-        console.log(articleData)
-
-
+    // obtain the meme Data from the endpoint       
+    let memeData = await fetch(urlEndpoints.memeDataSource).then(results=>results.json()).then(jsonMemeData=>saveMeme(jsonMemeData)) 
+    
+    await addMemetoScreen(memeData)
+    await addArticle(articleData);
+    }
+    fetchMyData()
 /*--------------------------------------------------------------------
 * Function - Append Article to DOM
 *  note here:  I did a forEach here to show that everything is on the DOM.  We can easily get 
 --------------------------------------------------------------------*/
-
+function addArticle(articleData){
     articleData.forEach(article=> {
         const section = document.createElement('section');
+        const memeContent = document.querySelector('.meme-content')
         section.innerHTML = 
         `<a href=${article.url}>Article Source: ${article.source.name}</a><br />
         Article Description: ${article.description}<br /><br />`;
+        memeContent.appendChild(section)
         document.body.appendChild(section)  ;
-    
-    
     });
 }
-fetchMyData()
 
+
+function getNews() {
 const fetchTechData = async()=>{
     const technoData = localStorage.getItem(TECH_STORAGE_KEY) ? JSON.parse(localStorage.getItem(TECH_STORAGE_KEY))
         : await fetch(urlEndpoints.techData)
@@ -118,6 +128,7 @@ function getMeme() {
    
     memebtn.onclick = function(){
         mememodal.style.display ="block"; 
+        mememodal.innerHTML = addArticle();
     }
     //When the user clicks anywhere outside of the modal, close it
     window.onclick = function(event) {
@@ -130,12 +141,7 @@ function getMeme() {
    span1.onclick = function() {
      mememodal.style.display = "none";
    }
- 
-} getMeme();
-
-
-
-
+} getNews();
 
 
 /* Toggle between showing and hiding the navigation menu links when the user clicks on the hamburger menu / bar icon */
@@ -149,15 +155,65 @@ function openNav() {
 
 // get the modal
 const modal = document.getElementById("myModal");
+
 //get the <span> element that closes the modal
 const span = document.getElementsByClassName("close")[0];
+
 //when the user clicks on span(x), close the modal
 span.onclick = function() {
     modal.style.display ="none";
 }
+
 //when the user clicks anywhere outside of the modal, close the modal
 window.onclick=function(event) {
     if (event.target == modal) {
         modal.style.display = "none";
     }
 }
+function addToArray(jsonMemeData){
+    const memeArray = JSON.parse(localStorage.getItem(MEME_STORAGE_KEY)) || []
+    memeArray.push(jsonMemeData);
+    return(memeArray)
+}
+
+function rightbtn(){
+    const rightbtn = document.getElementById('rightbtn')
+    rightbtn.onclick = async () => {
+        const memeData = await fetch(urlEndpoints.memeDataSource)
+        .then(results=>results.json())
+        .then(jsonMemeData=>saveMeme(jsonMemeData))    
+        addMemetoScreen(memeData)
+    }
+};
+rightbtn()
+
+
+
+function addMemetoScreen(memeData) {
+    document.getElementById('memeImg').innerHTML = `'<img src='${memeData.url}'/>'`
+}
+
+function leftbtn() {
+    const memeInStorage =JSON.parse(localStorage.getItem(MEME_STORAGE_KEY))
+    console.log('memestorage', memeInStorage)
+    const leftbtn = document.getElementById('leftbtn');
+    leftbtn.onclick = function (){
+        console.log(memeInStorage[0])
+        console.log('last item', memeInStorage[memeInStorage.length-1])
+        lastImage = memeInStorage[memeInStorage.length-1] || memeInStorage[0]
+        document.getElementById('memeImg').innerHTML = `'<img src='${lastImage}'/>'`
+    }
+};
+leftbtn();
+
+/*
+1. rightbtn gets NEW meme 
+    a. save meme to local storage 
+    b. press rightbtn again updates Local Storage. 
+    c. onces you go back... needs to increment in order before it gets new meme. 
+
+2.  leftbtn just needs to go to localStorage 
+    a. retrieve last img 
+
+
+*/

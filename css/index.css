@@ -44,10 +44,17 @@ img {
    
 }
 
-.iframe {
-    grid-area: iframe;
-    height: 70vh;
+.memes {
+    grid-area: memes;
+    width: 100%;
+    height: auto;
 }
+
+.memes > img {
+    width: 100%;
+}
+
+
 
 #footer {
     background-color: #FFF082;
@@ -145,10 +152,10 @@ img {
     padding: 20px 0;
     width: 100%;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns:  1fr 2fr 1fr;
     grid-template-rows: 1fr;
     grid-template-areas: 
-    "left left iframe right right"
+    "left memes right"
 
 }
 
@@ -175,13 +182,13 @@ img {
 
     .contContainer {
         width: 90%;
-        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+        grid-template-columns: repeat(7, 1fr);
         grid-template-rows: 1fr;
         grid-template-areas: 
-        ". left iframe right ."
+        ". left memes memes memes right .";
     }
 
-    .iframe {
+    .memes {
        margin: 50px 0;
     }
     
@@ -288,16 +295,20 @@ img {
 .meme-content {
     background-color: #000;
     width: 100%;
-    height: 100vh;
+    height: auto;
     margin: auto;
     padding: 20px;
   }
+
+.meme-content > section{
+    color: white;
+}
 
 /* The Exit Button */
 .exit {
     color: #aaaaaa;
     float: right;
-    font-size: 1.2rem;
+    font-size: 5rem;
     font-weight: bold;
   }
   
@@ -306,3 +317,5 @@ img {
   color: #FFF;
   text-decoration: none;
 }
+
+
