@@ -56,8 +56,8 @@ function saveSports(jsonSportData){
     const savedSportData = JSON.stringify(jsonSportData.articles)
     localStorage.setItem(SPORT_STORAGE_KEY, savedSportData)
     return jsonSportData.articles;
-    }
 }
+
 
 /*--------------------------------------------------------------------
 *FUNCTION - GET DATA FROM NEWS API.   
@@ -99,7 +99,7 @@ function addArticle(articleData){
 
         newsContent.appendChild(section)
 
-        memeContent.appendChild(section)
+        // memeContent.appendChild(section)
 
     });
 }
@@ -107,10 +107,9 @@ function addArticle(articleData){
 
 
 
-const fetchTechData = async()=>{
 
 const fetchSubjectData = async()=>{
-
+    const fetchTechData = async()=>{
     const technoData = localStorage.getItem(TECH_STORAGE_KEY) ? JSON.parse(localStorage.getItem(TECH_STORAGE_KEY))
         : await fetch(urlEndpoints.techData)
             .then(results=>results.json())
@@ -127,13 +126,8 @@ const fetchSubjectData = async()=>{
             .then(jsonifiedData=>saveSports(jsonifiedData));
 
         console.log(sportyData)
-
     }    
-
-fetchTechData();
-
-
-        //console.log(sportyData)
+  //console.log(sportyData)
 }
 fetchSubjectData()
 
