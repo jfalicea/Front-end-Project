@@ -4,12 +4,36 @@ By Sean, Tracy and Jonathan A
 
 Amemezing News
 =======
+### Description
+Amemezing News fetches 2 APIs. When users enter the website, they will see random memes and have the option to read an article by clicking the icon on the top-right navigation bar. Once you click on the icon, a full page will pop up with a list of articles. The page also acts as a screen block for hiding the meme. 
 
-Amemezing News fetches 2 APIs. When users enters the website, they will see random memes and have the option to read an article by clicking the icon on the top-right navigation bar. Once you click on the icon, a full page will pop up with a list of articles. The page also acts as a screen block for hiding the meme. 
+### Technical Requirements
+<ul>
+<li>Implement a Responsive Design that works on Chrome on OSX, iOS devices, and Android devices with at least three breakpoints for mobile, tablet and desktop.</li>
+<li>Access at least 2 remote APIs (data mashup!)</li>
+<li>Use fewer than 3 global variables (numerous constants are fine, but should be limited to primitive values like numbers and strings)</li>
+</ul>
 
+### Suggested PR rejection criteria
+<ul>
+  <li>Does not fulfill feature</li>
+  <li>Breaks other feature</li>
+  <li>Does not follow team's coding style/standards</li>
+  <li>Too many commits in a single PR (meaning too much to review)</li>
+  <li>Code in a commit does not match commit message</li>
+  <li>Commit message is vague</li>
+</ul>
+
+ 
 ## Prerequisites
 ### API Links
 News API: https://newsapi.org/v2/top-headlines?country=us&apiKey=b1d2a2d19a1c47fd822364fb24e03910<br/>
 Meme API: https://meme-api.herokuapp.com/gimme<br/>
 
 
+## Languages Used
+<ul>
+  <li>HTML</li>
+  <li>CSS</li>
+  <li>JavaScript</li>
+</ul>
