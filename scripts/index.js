@@ -13,12 +13,19 @@
 const urlEndpoints = {
     newsData: `https://newsapi.org/v2/top-headlines?country=us&apiKey=b1d2a2d19a1c47fd822364fb24e03910`, //API Key for NewsAPI.org
     memeDataSource: `https://meme-api.herokuapp.com/gimme`,
+    techData: `https://newsapi.org/v2/top-headlines?category=technology&country=us&apiKey=b1d2a2d19a1c47fd822364fb24e03910`,
+    busiData: `https://newsapi.org/v2/top-headlines?category=business&country=us&apiKey=b1d2a2d19a1c47fd822364fb24e03910`,
+    sportsData: `https://newsapi.org/v2/top-headlines?category=sports&country=us&apiKey=b1d2a2d19a1c47fd822364fb24e03910`
 };
+console.log(urlEndpoints.techData)
 /*--------------------------------------------------------------------
 * Storage Key Variable.   #global_varible 
 --------------------------------------------------------------------*/
 const STORAGE_KEY = 'articles'; // need to add time-bomb key function here!
-const MEME_STORAGE_KEY = 'memes'
+const MEME_STORAGE_KEY = 'memes';
+const TECH_STORAGE_KEY = 'techarticles';
+const BUSI_STORAGE_KEY = 'busarticles';
+const SPORT_STORAGE_KEY ='sportarticles'
 /*--------------------------------------------------------------------
 * FUNCTION - store Article Data to localStorage. 
 --------------------------------------------------------------------*/
@@ -27,10 +34,27 @@ function saveToStorage(jsonArticleData){
     localStorage.setItem(STORAGE_KEY, savedArticles)
     return jsonArticleData.articles;
 }
+
 function saveMeme(jsonMemeData){
     const savedMemes = JSON.stringify(addToArray(jsonMemeData.url))
     localStorage.setItem(MEME_STORAGE_KEY, savedMemes)
     return jsonMemeData;
+=======
+function saveTech(jsonTechnoData){
+    const savedTechArticles = JSON.stringify(jsonTechnoData.articles)
+    localStorage.setItem(TECH_STORAGE_KEY, savedTechArticles)
+    return jsonTechnoData.articles;
+}
+function saveBus(jsonBusinessData){
+    const savedBusData = JSON.stringify(jsonBusinessData.articles)
+    localStorage.setItem(BUSI_STORAGE_KEY, savedBusData)
+    return jsonBusinessData.articles;
+}
+function saveSports(jsonSportData){
+    const savedSportData = JSON.stringify(jsonSportData.articles)
+    localStorage.setItem(SPORT_STORAGE_KEY, savedSportData)
+    return jsonSportData.articles;
+
 }
 
 /*--------------------------------------------------------------------
@@ -69,10 +93,36 @@ function addArticle(articleData){
         `<a href=${article.url}>Article Source: ${article.source.name}</a><br />
         Article Description: ${article.description}<br /><br />`;
         memeContent.appendChild(section)
+        document.body.appendChild(section)  ;
     });
 }
 
+
 function getNews() {
+const fetchTechData = async()=>{
+    const technoData = localStorage.getItem(TECH_STORAGE_KEY) ? JSON.parse(localStorage.getItem(TECH_STORAGE_KEY))
+        : await fetch(urlEndpoints.techData)
+            .then(results=>results.json())
+            .then(jsonifiedData=>saveTech(jsonifiedData));
+        console.log(technoData)
+    const busineData = localStorage.getItem(BUSI_STORAGE_KEY) ? JSON.parse(localStorage.getItem(BUSI_STORAGE_KEY))
+        : await fetch(urlEndpoints.busiData)
+            .then(results=>results.json())
+            .then(jsonifiedData=>saveBus(jsonifiedData));
+        console.log(busineData)
+    const sportyData = localStorage.getItem(SPORT_STORAGE_KEY) ? JSON.parse(localStorage.getItem(SPORT_STORAGE_KEY))
+        : await fetch(urlEndpoints.sportsData)
+            .then(results=>results.json())
+            .then(jsonifiedData=>saveSports(jsonifiedData));
+        console.log(sportyData)
+
+}
+fetchTechData()
+
+
+
+
+function getMeme() {
     const memebtn = document.querySelector(".icon"); // Get the button that opens the modal
     const mememodal = document.querySelector("#memeModal"); // Get the modal
    
@@ -92,10 +142,6 @@ function getNews() {
      mememodal.style.display = "none";
    }
 } getNews();
-
-
-
-
 
 
 /* Toggle between showing and hiding the navigation menu links when the user clicks on the hamburger menu / bar icon */
@@ -133,7 +179,9 @@ function addToArray(jsonMemeData){
 function rightbtn(){
     const rightbtn = document.getElementById('rightbtn')
     rightbtn.onclick = async () => {
-        const memeData = await fetch(urlEndpoints.memeDataSource).then(results=>results.json()).then(jsonMemeData=>saveMeme(jsonMemeData))    
+        const memeData = await fetch(urlEndpoints.memeDataSource)
+        .then(results=>results.json())
+        .then(jsonMemeData=>saveMeme(jsonMemeData))    
         addMemetoScreen(memeData)
     }
 };
