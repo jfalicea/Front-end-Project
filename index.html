@@ -24,11 +24,10 @@
     <div id="myNav" class="overlay">
             <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
             <div class="overlay-content">
-                <a href="#">Home</a>
-                <a href="#">Top Headlines</a>
-                <a href="#">Entertainment</a>
-                <a href="#">Sports</a>
-                <a href="#">Tech</a>
+                <a href="#" id="tophead" class="top-type">Top Headlines</a>
+                <a href="#" id="entmt" class="entmt-type">Entertainment</a>
+                <a href="#" id="sports" class="sports-type">Sports</a>
+                <a href="#" id="tech" class="tech-type">Tech</a>
             </div>
     </div>
     <!-- END OF NAVIGATION -->
@@ -81,7 +80,7 @@
             <div class="modal-header">
                 <span class="close">&times;</span>
                 <h1>Welcome to Amemezing News</h1>
-                <h4>In order to hide the content that you're viewing, please click the icon next to the home button.<br/>
+                <h4>In order to hide the content that you're viewing, please click the icon at the top-right of the navigation bar.<br/>
                     This will disappear once you click/touch out.</h4>
                 <p><strong>DISCLAIMER:</strong> Memes are randomly generated. We have no control over meme content. Some images are NSFW. </p>
             </div>
@@ -89,14 +88,15 @@
         <!-- END OF MODAL CONTENT-->
 </div>
 <!-- END OF MODAL -->
+</main>
 
 <!-- FOOTER -->
-    <footer id="footer">
-            <p>News Provided by <a href="https://api.org">newsapi.org</a> </p>
+    <footer id="footer" class="main-footer">
+        <p>News Provided by <a href="https://api.org">newsapi.org</a> </p>
+        <p>Memes Provided by <a href="https://meme-api.herokuapp.com/gimme">meme-api.herokuapp.com</a></p>
     </footer>
     
 
-</main>
 
     <script src="scripts/index.js"></script>
 </body>
