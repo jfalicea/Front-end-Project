@@ -5,7 +5,7 @@ By Sean, Tracy and Jonathan A
 Amemezing News
 =======
 ### Description
-Amemezing News fetches 2 APIs. When users enter the website, they will see random memes and have the option to read an article by clicking the icon on the top-right navigation bar. Once you click on the icon, a full page will pop up with a list of articles. The page also acts as a screen block for hiding the meme. 
+Amemezing News fetches 2 APIs. The goal of this project is to enjoy memes without the judgemental eyes of co-workers, parents, and/or teachers. When the user enters the website, random memes will display. The user will have the option to read an article by clicking the icon on the top-right navigation bar. Once the user clicks on the icon, a full page will display a list of articles. The page acts as a screen block for hiding the meme.
 
 ### Technical Requirements
 <ul>
