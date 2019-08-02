@@ -39,7 +39,7 @@ function saveMeme(jsonMemeData){
     const savedMemes = JSON.stringify(addToArray(jsonMemeData.url))
     localStorage.setItem(MEME_STORAGE_KEY, savedMemes)
     return jsonMemeData;
-=======
+}
 function saveTech(jsonTechnoData){
     const savedTechArticles = JSON.stringify(jsonTechnoData.articles)
     localStorage.setItem(TECH_STORAGE_KEY, savedTechArticles)
@@ -75,11 +75,13 @@ const fetchMyData = async()=>{
             .then(jsonifiedData=>saveToStorage(jsonifiedData));   
     
     // obtain the meme Data from the endpoint       
-    let memeData = await fetch(urlEndpoints.memeDataSource).then(results=>results.json()).then(jsonMemeData=>saveMeme(jsonMemeData)) 
+    let memeData = await fetch(urlEndpoints.memeDataSource)
+    .then(results=>results.json())
+    .then(jsonMemeData=>saveMeme(jsonMemeData)) 
     
-    await addMemetoScreen(memeData)
+    await addMemetoScreen(memeData);
     await addArticle(articleData);
-    }
+}
     fetchMyData()
 /*--------------------------------------------------------------------
 * Function - Append Article to DOM
@@ -93,36 +95,30 @@ function addArticle(articleData){
         `<a href=${article.url}>Article Source: ${article.source.name}</a><br />
         Article Description: ${article.description}<br /><br />`;
         memeContent.appendChild(section)
-        document.body.appendChild(section)  ;
     });
 }
 
 
-function getNews() {
-const fetchTechData = async()=>{
+const fetchSubjectData = async()=>{
     const technoData = localStorage.getItem(TECH_STORAGE_KEY) ? JSON.parse(localStorage.getItem(TECH_STORAGE_KEY))
         : await fetch(urlEndpoints.techData)
             .then(results=>results.json())
             .then(jsonifiedData=>saveTech(jsonifiedData));
-        console.log(technoData)
+        //console.log(technoData)
     const busineData = localStorage.getItem(BUSI_STORAGE_KEY) ? JSON.parse(localStorage.getItem(BUSI_STORAGE_KEY))
         : await fetch(urlEndpoints.busiData)
             .then(results=>results.json())
             .then(jsonifiedData=>saveBus(jsonifiedData));
-        console.log(busineData)
+        //console.log(busineData)
     const sportyData = localStorage.getItem(SPORT_STORAGE_KEY) ? JSON.parse(localStorage.getItem(SPORT_STORAGE_KEY))
         : await fetch(urlEndpoints.sportsData)
             .then(results=>results.json())
             .then(jsonifiedData=>saveSports(jsonifiedData));
-        console.log(sportyData)
-
+        //console.log(sportyData)
 }
-fetchTechData()
+fetchSubjectData()
 
-
-
-
-function getMeme() {
+function getNews() {
     const memebtn = document.querySelector(".icon"); // Get the button that opens the modal
     const mememodal = document.querySelector("#memeModal"); // Get the modal
    
@@ -148,10 +144,11 @@ function getMeme() {
 function openNav() {
     document.getElementById("myNav").style.width = "100%";
   }
-  
+  openNav()
   function closeNav() {
     document.getElementById("myNav").style.width = "0%";
   }
+  closeNav()
 
 // get the modal
 const modal = document.getElementById("myModal");
@@ -198,7 +195,7 @@ function leftbtn() {
     console.log('memestorage', memeInStorage)
     const leftbtn = document.getElementById('leftbtn');
     leftbtn.onclick = function (){
-        console.log(memeInStorage[0])
+        // console.log(memeInStorage[0])
         console.log('last item', memeInStorage[memeInStorage.length-1])
         lastImage = memeInStorage[memeInStorage.length-1] || memeInStorage[0]
         document.getElementById('memeImg').innerHTML = `'<img src='${lastImage}'/>'`
@@ -213,7 +210,4 @@ leftbtn();
     c. onces you go back... needs to increment in order before it gets new meme. 
 
 2.  leftbtn just needs to go to localStorage 
-    a. retrieve last img 
-
-
-*/
+a. retrieve last img */
