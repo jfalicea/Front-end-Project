@@ -24,8 +24,8 @@ li {
 img {
     width: 40%;
     max-width: 100%;
+    
 }
-
 
 
 .arrowleft{
@@ -33,7 +33,6 @@ img {
     margin: auto;
     display: flex;
     justify-content: center;
-
     width: 0; 
     height: 0; 
     border-top: 3rem solid transparent;
@@ -60,10 +59,13 @@ img {
     grid-area: memes;
     width: 100%;
     height: auto;
+    background: url(../img/loading.gif) 600% no-repeat;
+    
 }
 
 .memes > img {
     width: 100%;
+    background: url(../img/loading.gif) 600% no-repeat;
 }
 
 
@@ -398,5 +400,28 @@ LARGER SCREENS
 @keyframes fadeIN {
     from {opacity: 0}
     to {opacity: 1}
+}
+
+.LockOn {
+    display: block;
+    visibility: visible;
+    position: fixed;
+    z-index: 999;
+    top: 0px;
+    left: 0px;
+    width: 100vw;
+    height: 100vh;
+    background-color:white;
+    /* padding-top: 20%;  */
+    filter: alpha(opacity=75); 
+    opacity: 0.75; 
+    font-size:large;
+    color:blue;
+    font-style:italic;
+    font-weight:400;
+    background-image: url("../img/loading.gif");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
 }
 

@@ -12,6 +12,7 @@
 
 <body>
 <main>
+    
 <!-- START OF HEADER CONTAINER // NAVIGATION --> 
 <header>
 <div class="grid"> <!-- PARENT GRID -->
@@ -24,11 +25,11 @@
     <div id="myNav" class="overlay">
             <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
             <div class="overlay-content">
-                <a href="#">Home</a>
-                <a href="#">Top Headlines</a>
-                <a href="#">Entertainment</a>
-                <a href="#">Sports</a>
-                <a href="#">Tech</a>
+                <a href="#home">Home</a>
+                <a href="#headlines">Top Headlines</a>
+                <a href="#entertainment">Entertainment</a>
+                <a href="#sports">Sports</a>
+                <a href="#tech">Tech</a>
             </div>
     </div>
     <!-- END OF NAVIGATION -->
@@ -62,6 +63,7 @@
             </div>
 
     <!-- MEME CONTAINER // Where the meme will display -->
+    <div id="coverScreen" class="LockOn"></div>
             <div id="memeImg" class='memes'>
             </div>
 
@@ -97,6 +99,7 @@
     
 
 </main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
     <script src="scripts/index.js"></script>
 </body>
