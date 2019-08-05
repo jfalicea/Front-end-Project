@@ -99,46 +99,85 @@ function addArticle(articleData){
 
         newsContent.appendChild(section)
 
-        // memeContent.appendChild(section)
+       
 
     });
-}
-
+};
 
 
 
 
 const fetchSubjectData = async()=>{
-    const fetchTechData = async()=>{
     const technoData = localStorage.getItem(TECH_STORAGE_KEY) ? JSON.parse(localStorage.getItem(TECH_STORAGE_KEY))
         : await fetch(urlEndpoints.techData)
             .then(results=>results.json())
             .then(jsonifiedData=>saveTech(jsonifiedData));
-        //console.log(technoData)
+        console.log(technoData)
     const busineData = localStorage.getItem(BUSI_STORAGE_KEY) ? JSON.parse(localStorage.getItem(BUSI_STORAGE_KEY))
         : await fetch(urlEndpoints.busiData)
             .then(results=>results.json())
             .then(jsonifiedData=>saveBus(jsonifiedData));
-        //console.log(busineData)
+        console.log(busineData)
     const sportyData = localStorage.getItem(SPORT_STORAGE_KEY) ? JSON.parse(localStorage.getItem(SPORT_STORAGE_KEY))
         : await fetch(urlEndpoints.sportsData)
             .then(results=>results.json())
             .then(jsonifiedData=>saveSports(jsonifiedData));
-
+    
+    await addTech(technoData);
+    await addBusine(busineData);
+    await addSporty(sportyData);
         console.log(sportyData)
     }    
   //console.log(sportyData)
-}
+
 fetchSubjectData()
+
+function addTech(technoData){
+    technoData.forEach(article=> {
+        const section = document.createElement('section');
+        const newsContent = document.querySelector('.news-content')
+        section.innerHTML = 
+        `<a href=${article.url}>Article Source: ${article.source.name}</a><br />
+        Article Description: ${article.description}<br /><br />`;
+        newsContent.appendChild(section)
+
+
+    });
+};
+
+function addBusine(busineData){
+    busineData.forEach(article=> {
+        const section = document.createElement('section');
+        const newsContent = document.querySelector('.news-content')
+        section.innerHTML=
+        `<a href=${article.url}>Article Source: ${article.source.name}</a><br />
+        Article Description: ${article.description}<br /><br />`;
+
+        newsContent.appendChild(section)
+    });
+    
+};
+
+function addSporty(sportyData){
+    sportyData.forEach(article=> {
+        const section = document.createElement('section');
+        const newsContent = document.querySelector('.news-content')
+        section.innerHTML=
+        `<a href=${article.url}>Article Source: ${article.source.name}</a><br />
+        Article Description: ${article.description}<br /><br />`;
+
+        newsContent.appendChild(section)
+    });
+    
+};
 
 
 function getNews() {
     const memebtn = document.querySelector(".icon"); // Get the button that opens the modal
     const newsmodal = document.querySelector("#newsModal"); // Get the modal
-   
     memebtn.onclick = function(){
         newsmodal.style.display ="block"; 
-        newsmodal.innerHTML = addArticle();
+        newsmodal.innerHTML = addBusine();
     }
     //When the user clicks anywhere outside of the modal, close it
     window.onclick = function(event) {
@@ -151,6 +190,7 @@ function getNews() {
    span1.onclick = function() {
      newsmodal.style.display = "none";
    }
+   
 } getNews();
 
 
@@ -158,10 +198,11 @@ function getNews() {
 function openNav() {
     document.getElementById("myNav").style.width = "100%";
   }
-  openNav()
+  
   function closeNav() {
     document.getElementById("myNav").style.width = "0%";
   }
+
   closeNav()
 
 // get the modal
@@ -213,10 +254,20 @@ function leftbtn() {
         // console.log(memeInStorage[0])
         console.log('last item', memeInStorage[memeInStorage.length-1])
         lastImage = memeInStorage[memeInStorage.length-1] || memeInStorage[0]
-        document.getElementById('memeImg').innerHTML = `'<img src='${lastImage}'/>'`
+        document.getElementById('memeImg').innerHTML = `<img src='${lastImage}'/>`
     }
 };
 leftbtn();
+
+
+$(window).on('load', function () {
+    $("#coverScreen").hide();
+    });
+$("#rightbtn").click(function () {
+    $("#coverScreen").show(1000).hide(1800);
+    });
+
+
 
 /*
 1. rightbtn gets NEW meme 
