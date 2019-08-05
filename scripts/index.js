@@ -1,13 +1,4 @@
 /*--------------------------------------------------------------------
-*Notes:   
-*We can alter the get storage key to a time, then compare it so that we can ensure that there is daily refresh of data.  
-*Get data!   Date.now()  object.keys ///
-*Fetch Article Data out of NewsAPI.org 
-*Need to figure out how to hand errors. 
---------------------------------------------------------------------*/
-
-
-/*--------------------------------------------------------------------
 * URL ENDPOINTS GO HERE     #global_varible
 --------------------------------------------------------------------*/
 const urlEndpoints = {
@@ -17,7 +8,6 @@ const urlEndpoints = {
     busiData: `https://newsapi.org/v2/top-headlines?category=business&country=us&apiKey=b1d2a2d19a1c47fd822364fb24e03910`,
     sportsData: `https://newsapi.org/v2/top-headlines?category=sports&country=us&apiKey=b1d2a2d19a1c47fd822364fb24e03910`
 };
-console.log(urlEndpoints.techData)
 /*--------------------------------------------------------------------
 * Storage Key Variable.   #global_varible 
 --------------------------------------------------------------------*/
@@ -34,14 +24,11 @@ function saveToStorage(jsonArticleData){
     localStorage.setItem(STORAGE_KEY, savedArticles)
     return jsonArticleData.articles;
 }
-
 function saveMeme(jsonMemeData){
     const savedMemes = JSON.stringify(addToArray(jsonMemeData.url))
     localStorage.setItem(MEME_STORAGE_KEY, savedMemes)
     return jsonMemeData;
-
 }
-
 function saveTech(jsonTechnoData){
     const savedTechArticles = JSON.stringify(jsonTechnoData.articles)
     localStorage.setItem(TECH_STORAGE_KEY, savedTechArticles)
@@ -57,8 +44,6 @@ function saveSports(jsonSportData){
     localStorage.setItem(SPORT_STORAGE_KEY, savedSportData)
     return jsonSportData.articles;
 }
-
-
 /*--------------------------------------------------------------------
 *FUNCTION - GET DATA FROM NEWS API.   
 This ternary identifies whether or not there is already saved Article Data in local storage. 
@@ -96,11 +81,7 @@ function addArticle(articleData){
         section.innerHTML = 
         `<a href=${article.url}>Article Source: ${article.source.name}</a><br />
         Article Description: ${article.description}<br /><br />`;
-
         newsContent.appendChild(section)
-
-       
-
     });
 };
 
@@ -126,10 +107,7 @@ const fetchSubjectData = async()=>{
     await addTech(technoData);
     await addBusine(busineData);
     await addSporty(sportyData);
-        console.log(sportyData)
-    }    
-  //console.log(sportyData)
-
+}    
 fetchSubjectData()
 
 function addTech(technoData){
@@ -165,10 +143,8 @@ function addSporty(sportyData){
         section.innerHTML=
         `<a href=${article.url}>Article Source: ${article.source.name}</a><br />
         Article Description: ${article.description}<br /><br />`;
-
         newsContent.appendChild(section)
-    });
-    
+    });  
 };
 
 
@@ -185,43 +161,44 @@ function getNews() {
        newsmodal.style.display = "none";
      }
    }
- 
  const span1 = document.querySelector(".exit"); // Get the <span> element that closes the modal)
    span1.onclick = function() {
      newsmodal.style.display = "none";
    }
-   
-} getNews();
+} 
+getNews();
 
 
 /* Toggle between showing and hiding the navigation menu links when the user clicks on the hamburger menu / bar icon */
 function openNav() {
     document.getElementById("myNav").style.width = "100%";
-  }
-  
-  function closeNav() {
+}
+function closeNav() {
     document.getElementById("myNav").style.width = "0%";
-  }
-
-  closeNav()
+}
+closeNav()
 
 // get the modal
-const modal = document.getElementById("myModal");
+function disclaimer(){
+    const modal = document.getElementById("myModal");
 
-//get the <span> element that closes the modal
-const span = document.getElementsByClassName("close")[0];
+    //get the <span> element that closes the modal
+    const span = document.getElementsByClassName("close")[0];
 
-//when the user clicks on span(x), close the modal
-span.onclick = function() {
-    modal.style.display ="none";
-}
+    //when the user clicks on span(x), close the modal
+    span.onclick = function() {
+        modal.style.display ="none";
+    }
 
-//when the user clicks anywhere outside of the modal, close the modal
-window.onclick=function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
+    //when the user clicks anywhere outside of the modal, close the modal
+    window.onclick=function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
     }
 }
+disclaimer();
+
 
 function addToArray(jsonMemeData){
     const memeArray = JSON.parse(localStorage.getItem(MEME_STORAGE_KEY)) || []
@@ -239,13 +216,9 @@ function rightbtn(){
     }
 };
 rightbtn()
-
-
-
 function addMemetoScreen(memeData) {
     document.getElementById('memeImg').innerHTML = `'<img src='${memeData.url}'/>'`
 }
-
 function leftbtn() {
     const memeInStorage =JSON.parse(localStorage.getItem(MEME_STORAGE_KEY))
     console.log('memestorage', memeInStorage)
@@ -260,6 +233,7 @@ function leftbtn() {
 leftbtn();
 
 
+//load animation
 $(window).on('load', function () {
     $("#coverScreen").hide();
     });
