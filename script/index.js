@@ -11,11 +11,12 @@ const urlEndpoints = {
 /*--------------------------------------------------------------------
 * Storage Key Variable.   #global_varible 
 --------------------------------------------------------------------*/
-const STORAGE_KEY = 'articles'; // need to add time-bomb key function here!
+const STORAGE_KEY = 'articles'; 
 const MEME_STORAGE_KEY = 'memes';
 const TECH_STORAGE_KEY = 'techarticles';
 const BUSI_STORAGE_KEY = 'busarticles';
 const SPORT_STORAGE_KEY ='sportarticles'
+const CLICK_STORAGE_KEY = 'click'
 /*--------------------------------------------------------------------
 * FUNCTION - store Article Data to localStorage. 
 --------------------------------------------------------------------*/
@@ -44,8 +45,10 @@ function saveSports(jsonSportData){
     localStorage.setItem(SPORT_STORAGE_KEY, savedSportData)
     return jsonSportData.articles;
 }
+const saveClick = localStorage.setItem(CLICK_STORAGE_KEY, "0")
+
 /*--------------------------------------------------------------------
-*FUNCTION - GET DATA FROM NEWS API.   
+*FUNCTION - GET DATA FROM ALL API.   
 This ternary identifies whether or not there is already saved Article Data in local storage. 
 a. If there is, we will work out of localStorage. 
 b. If there isnt anything in localStorage then 
@@ -56,18 +59,38 @@ c. FINALLY we return the array of article Data.
 -------------------------------------------------------------------------------------------*/
 
 const fetchMyData = async()=>{
-    let articleData = localStorage.getItem(STORAGE_KEY) ? JSON.parse(localStorage.getItem(STORAGE_KEY))
+    const articleData = localStorage.getItem(STORAGE_KEY) ? JSON.parse(localStorage.getItem(STORAGE_KEY))
         : await fetch(urlEndpoints.newsData)
             .then(results=>results.json())
             .then(jsonifiedData=>saveToStorage(jsonifiedData));   
     
+
+    const technoData = localStorage.getItem(TECH_STORAGE_KEY) ? JSON.parse(localStorage.getItem(TECH_STORAGE_KEY))
+        : await fetch(urlEndpoints.techData)
+            .then(results=>results.json())
+            .then(jsonifiedData=>saveTech(jsonifiedData));
+
+    const busineData = localStorage.getItem(BUSI_STORAGE_KEY) ? JSON.parse(localStorage.getItem(BUSI_STORAGE_KEY))
+        : await fetch(urlEndpoints.busiData)
+            .then(results=>results.json())
+            .then(jsonifiedData=>saveBus(jsonifiedData));
+            
+    const sportyData = localStorage.getItem(SPORT_STORAGE_KEY) ? JSON.parse(localStorage.getItem(SPORT_STORAGE_KEY))
+        : await fetch(urlEndpoints.sportsData)
+            .then(results=>results.json())
+            .then(jsonifiedData=>saveSports(jsonifiedData));
+        
+    // addArticle(articleData);
+    addArticle(technoData);
+    addArticle(busineData);
+    addArticle(sportyData)
+
     // obtain the meme Data from the endpoint       
     let memeData = await fetch(urlEndpoints.memeDataSource)
     .then(results=>results.json())
     .then(jsonMemeData=>saveMeme(jsonMemeData)) 
-    
     await addMemetoScreen(memeData);
-    await addArticle(articleData);
+    //
 }
     fetchMyData()
 /*--------------------------------------------------------------------
@@ -79,106 +102,86 @@ function addArticle(articleData){
         const section = document.createElement('section');
         const newsContent = document.querySelector('.news-content')
         section.innerHTML = 
-        `<a href=${article.url}>Article Source: ${article.source.name}</a><br />
-        Article Description: ${article.description}<br /><br />`;
+        `
+        <h1>${article.title}</h1>
+        <img src="${article.urlToImage}">
+        <br/>
+        <a href=${article.url}>Article Source: ${article.source.name}</a><br />
+        <p>Article Description: ${article.description}</p>
+        <hr><br/>
+        <br /><br />`;
         newsContent.appendChild(section)
     });
 };
 
-
-
-
-const fetchSubjectData = async()=>{
-    const technoData = localStorage.getItem(TECH_STORAGE_KEY) ? JSON.parse(localStorage.getItem(TECH_STORAGE_KEY))
-        : await fetch(urlEndpoints.techData)
-            .then(results=>results.json())
-            .then(jsonifiedData=>saveTech(jsonifiedData));
-        console.log(technoData)
-    const busineData = localStorage.getItem(BUSI_STORAGE_KEY) ? JSON.parse(localStorage.getItem(BUSI_STORAGE_KEY))
-        : await fetch(urlEndpoints.busiData)
-            .then(results=>results.json())
-            .then(jsonifiedData=>saveBus(jsonifiedData));
-        console.log(busineData)
-    const sportyData = localStorage.getItem(SPORT_STORAGE_KEY) ? JSON.parse(localStorage.getItem(SPORT_STORAGE_KEY))
-        : await fetch(urlEndpoints.sportsData)
-            .then(results=>results.json())
-            .then(jsonifiedData=>saveSports(jsonifiedData));
-    
-    await addTech(technoData);
-    await addBusine(busineData);
-    await addSporty(sportyData);
-}    
-fetchSubjectData()
-
-function addTech(technoData){
-    technoData.forEach(article=> {
-        const section = document.createElement('section');
-        const newsContent = document.querySelector('.news-content')
-        section.innerHTML = 
-        `<a href=${article.url}>Article Source: ${article.source.name}</a><br />
-        Article Description: ${article.description}<br /><br />`;
-        newsContent.appendChild(section)
-
-
-    });
-};
-
-function addBusine(busineData){
-    busineData.forEach(article=> {
-        const section = document.createElement('section');
-        const newsContent = document.querySelector('.news-content')
-        section.innerHTML=
-        `<a href=${article.url}>Article Source: ${article.source.name}</a><br />
-        Article Description: ${article.description}<br /><br />`;
-
-        newsContent.appendChild(section)
-    });
-    
-};
-
-function addSporty(sportyData){
-    sportyData.forEach(article=> {
-        const section = document.createElement('section');
-        const newsContent = document.querySelector('.news-content')
-        section.innerHTML=
-        `<a href=${article.url}>Article Source: ${article.source.name}</a><br />
-        Article Description: ${article.description}<br /><br />`;
-        newsContent.appendChild(section)
-    });  
-};
-
-
-function getNews() {
-    const memebtn = document.querySelector(".icon"); // Get the button that opens the modal
-    const newsmodal = document.querySelector("#newsModal"); // Get the modal
-    memebtn.onclick = function(){
+  
+//TopNews
+function getTopNews(articleData) {
+    const topNewbtn = document.querySelector("#topNewsBtn"); // Get the button that opens the modal
+    const newsmodal = document.querySelector("#topNewsModal"); // Get the modal
+    const exitBtn = document.querySelector(".exit");
+    topNewbtn.addEventListener('click', ()=>{
         newsmodal.style.display ="block"; 
-        newsmodal.innerHTML = addBusine();
-    }
+        newsmodal.innerHTML = addArticle(articleData); //
+    });
     //When the user clicks anywhere outside of the modal, close it
-    window.onclick = function(event) {
-     if (event.target == mememodal) {
-       newsmodal.style.display = "none";
+    exitBtn.addEventListener('click', function(event) {
+        if (event.target === event.currentTarget) {
+         newsmodal.style.display = "none";
      }
-   }
- const span1 = document.querySelector(".exit"); // Get the <span> element that closes the modal)
-   span1.onclick = function() {
-     newsmodal.style.display = "none";
-   }
+   });
 } 
-getNews();
+getTopNews();
+
+// function getEntNews() {
+//     const entbtn = document.querySelector("#entBtn"); // Get the button that opens the modal
+//     const entmodal = document.querySelector("#entModal"); // Get the modal
+//     entbtn.addEventListener('click', ()=>{
+//         entmodal.style.display ="block"; 
+//         entmodal.innerHTML = addArticle(); //
+//     });
+//     //When the user clicks anywhere outside of the modal, close it
+    
+// } 
+// getEntNews();
+
+// function getSportsNews() {
+//     const sportsbtn = document.querySelector("#sportsBtn"); // Get the button that opens the modal
+//     const sportsmodal = document.querySelector("#sportsModal"); // Get the modal
+//     sportsbtn.addEtechtListener('click', ()=>{
+//         sportsmodal.style.display ="block"; 
+//         sportsmodal.innerHTML = addArticle(); //
+//     });    
+// } 
+// getSportsNews();
+
+// function getTechNews() {
+//     const techbtn = document.querySelector("#techBtn"); // Get the button that opens the modal
+//     const techmodal = document.querySelector("#techModal"); // Get the modal
+//     techbtn.addEtechtListener('click', ()=>{
+//         techmodal.style.display ="block"; 
+//         techmodal.innerHTML = addArticle(); //
+//     });
+//     //When the user clicks anywhere outside of the modal, close it
+    
+// } 
+// getTechNews();
 
 
-/* Toggle between showing and hiding the navigation menu links when the user clicks on the hamburger menu / bar icon */
-function openNav() {
-    document.getElementById("myNav").style.width = "100%";
+function exitButton(){
+    // const exitBtn = document.querySelector(".exit");
+    const popups = document.querySelectorAll("popup");
+    const entexitBtn = document.getElementById("entExit");
+    entexitBtn.addEventListener('click', function(event) {
+        console.log('click')
+        if (event.target === event.currentTarget) {
+         popups.style.display = "none";
+     }
+   });
 }
-function closeNav() {
-    document.getElementById("myNav").style.width = "0%";
-}
-closeNav()
+exitButton()
 
-// get the modal
+// get the Disclaimer modal
 function disclaimer(){
     const modal = document.getElementById("myModal");
 
@@ -208,52 +211,38 @@ function addToArray(jsonMemeData){
 
 function rightbtn(){
     const rightbtn = document.getElementById('rightbtn')
-    rightbtn.onclick = async () => {
-        const memeData = await fetch(urlEndpoints.memeDataSource)
-        .then(results=>results.json())
-        .then(jsonMemeData=>saveMeme(jsonMemeData))    
-        addMemetoScreen(memeData)
-    }
+   let index = JSON.parse(localStorage.getItem(CLICK_STORAGE_KEY));
+   const memeInStorage =JSON.parse(localStorage.getItem(MEME_STORAGE_KEY));
+//    localStorage.setItem(CLICK_STORAGE_KEY, JSON.stringify(click));
+    rightbtn.addEventListener('click', async function () {
+        const memeData =await fetch(urlEndpoints.memeDataSource).then(results=>results.json()).then(jsonMemeData=>saveMeme(jsonMemeData));
+        ++index;
+        console.log(memeData)
+        document.getElementById('memeImg').innerHTML = `<img src='${memeData.url}'/>`;
+
+    });
+
 };
 rightbtn()
+
 function addMemetoScreen(memeData) {
     document.getElementById('memeImg').innerHTML = `'<img src='${memeData.url}'/>'`
 }
 function leftbtn() {
-    const memeInStorage =JSON.parse(localStorage.getItem(MEME_STORAGE_KEY))
-    console.log('memestorage', memeInStorage)
     const leftbtn = document.getElementById('leftbtn');
-    leftbtn.onclick = function (){
-        // console.log(memeInStorage[0])
-        console.log('last item', memeInStorage[memeInStorage.length-1])
-        lastImage = memeInStorage[memeInStorage.length-1] || memeInStorage[0]
-        document.getElementById('memeImg').innerHTML = `<img src='${lastImage}'/>`
-    }
+    leftbtn.addEventListener('click', (e)=>{
+    let index = JSON.parse(localStorage.getItem(CLICK_STORAGE_KEY))
+        console.log('click')
+        if (index > 0){
+            const memeInStorage =JSON.parse(localStorage.getItem(MEME_STORAGE_KEY))
+            let click = --index
+            localStorage.setItem(CLICK_STORAGE_KEY, JSON.stringify(click))
+            lastImage = memeInStorage[click] || memeInStorage[0]
+            document.getElementById('memeImg').innerHTML = `<img src='${lastImage}'/>`
+        } else{
+            alert(`You're at the beginning`)
+        }
+     });
 };
 leftbtn();
-
-
-//load animation
-$(window).on('load', function () {
-    $("#coverScreen").hide();
-    });
-$("#rightbtn").click(function () {
-    $("#coverScreen").show(1000).hide(1800);
-    });
-
-
-
-/*
-1. rightbtn gets NEW meme 
-    a. save meme to local storage 
-    b. press rightbtn again updates Local Storage. 
-    c. onces you go back... needs to increment in order before it gets new meme. 
-
-2.  leftbtn just needs to go to localStorage 
-
-    a. retrieve last img 
-
-
-*/
-
 
