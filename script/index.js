@@ -26,6 +26,7 @@ function saveToStorage(jsonArticleData){
     return jsonArticleData.articles;
 }
 function saveMeme(jsonMemeData){
+    console.log(jsonMemeData)
     const savedMemes = JSON.stringify(addToArray(jsonMemeData.url))
     localStorage.setItem(MEME_STORAGE_KEY, savedMemes)
     return jsonMemeData;
@@ -63,28 +64,8 @@ const fetchMyData = async()=>{
         : await fetch(urlEndpoints.newsData)
             .then(results=>results.json())
             .then(jsonifiedData=>saveToStorage(jsonifiedData));   
-    
-
-    const technoData = localStorage.getItem(TECH_STORAGE_KEY) ? JSON.parse(localStorage.getItem(TECH_STORAGE_KEY))
-        : await fetch(urlEndpoints.techData)
-            .then(results=>results.json())
-            .then(jsonifiedData=>saveTech(jsonifiedData));
-
-    const busineData = localStorage.getItem(BUSI_STORAGE_KEY) ? JSON.parse(localStorage.getItem(BUSI_STORAGE_KEY))
-        : await fetch(urlEndpoints.busiData)
-            .then(results=>results.json())
-            .then(jsonifiedData=>saveBus(jsonifiedData));
-            
-    const sportyData = localStorage.getItem(SPORT_STORAGE_KEY) ? JSON.parse(localStorage.getItem(SPORT_STORAGE_KEY))
-        : await fetch(urlEndpoints.sportsData)
-            .then(results=>results.json())
-            .then(jsonifiedData=>saveSports(jsonifiedData));
         
-    // addArticle(articleData);
-    addArticle(technoData);
-    addArticle(busineData);
-    addArticle(sportyData)
-
+    await addArticle(articleData)
     // obtain the meme Data from the endpoint       
     let memeData = await fetch(urlEndpoints.memeDataSource)
     .then(results=>results.json())
@@ -133,43 +114,7 @@ function getTopNews(articleData) {
 } 
 getTopNews();
 
-// function getEntNews() {
-//     const entbtn = document.querySelector("#entBtn"); // Get the button that opens the modal
-//     const entmodal = document.querySelector("#entModal"); // Get the modal
-//     entbtn.addEventListener('click', ()=>{
-//         entmodal.style.display ="block"; 
-//         entmodal.innerHTML = addArticle(); //
-//     });
-//     //When the user clicks anywhere outside of the modal, close it
-    
-// } 
-// getEntNews();
-
-// function getSportsNews() {
-//     const sportsbtn = document.querySelector("#sportsBtn"); // Get the button that opens the modal
-//     const sportsmodal = document.querySelector("#sportsModal"); // Get the modal
-//     sportsbtn.addEtechtListener('click', ()=>{
-//         sportsmodal.style.display ="block"; 
-//         sportsmodal.innerHTML = addArticle(); //
-//     });    
-// } 
-// getSportsNews();
-
-// function getTechNews() {
-//     const techbtn = document.querySelector("#techBtn"); // Get the button that opens the modal
-//     const techmodal = document.querySelector("#techModal"); // Get the modal
-//     techbtn.addEtechtListener('click', ()=>{
-//         techmodal.style.display ="block"; 
-//         techmodal.innerHTML = addArticle(); //
-//     });
-//     //When the user clicks anywhere outside of the modal, close it
-    
-// } 
-// getTechNews();
-
-
 function exitButton(){
-    // const exitBtn = document.querySelector(".exit");
     const popups = document.querySelectorAll("popup");
     const entexitBtn = document.getElementById("entExit");
     entexitBtn.addEventListener('click', function(event) {
@@ -211,14 +156,27 @@ function addToArray(jsonMemeData){
 
 function rightbtn(){
     const rightbtn = document.getElementById('rightbtn')
-   let index = JSON.parse(localStorage.getItem(CLICK_STORAGE_KEY));
-   const memeInStorage =JSON.parse(localStorage.getItem(MEME_STORAGE_KEY));
-//    localStorage.setItem(CLICK_STORAGE_KEY, JSON.stringify(click));
     rightbtn.addEventListener('click', async function () {
-        const memeData =await fetch(urlEndpoints.memeDataSource).then(results=>results.json()).then(jsonMemeData=>saveMeme(jsonMemeData));
-        ++index;
-        console.log(memeData)
-        document.getElementById('memeImg').innerHTML = `<img src='${memeData.url}'/>`;
+        let index = JSON.parse(localStorage.getItem(CLICK_STORAGE_KEY));
+        const memeInStorage =JSON.parse(localStorage.getItem(MEME_STORAGE_KEY));
+        console.log(memeInStorage)
+        console.log(index)
+        click = ++index;
+        console.log(index)
+
+        localStorage.setItem(CLICK_STORAGE_KEY, JSON.stringify(click));
+        if (index >= memeInStorage.length){
+            console.log("index: ", index)
+            console.log("memeInStorage: ", memeInStorage.length)
+            const memeData = await fetch(urlEndpoints.memeDataSource).then(results=>results.json()).then(jsonMemeData=>saveMeme(jsonMemeData))
+            document.getElementById('memeImg').innerHTML = `<img src='${memeData.url}'/>`;
+        } else {
+            document.getElementById('memeImg').innerHTML = `<img src='${memeInStorage[index]}'/>`;
+        }
+        // else {
+
+        //     // document.getElementById('memeImg').innerHTML = `<img src='${memeInStorage[click]}'/>`;
+        // }
 
     });
 
@@ -232,7 +190,6 @@ function leftbtn() {
     const leftbtn = document.getElementById('leftbtn');
     leftbtn.addEventListener('click', (e)=>{
     let index = JSON.parse(localStorage.getItem(CLICK_STORAGE_KEY))
-        console.log('click')
         if (index > 0){
             const memeInStorage =JSON.parse(localStorage.getItem(MEME_STORAGE_KEY))
             let click = --index
