@@ -32,8 +32,7 @@ a:hover {
 
 img {
     width: 40%;
-    max-width: 100%;
-    
+    max-width: 100%; 
 }
 
 
@@ -47,7 +46,6 @@ img {
     border-top: 3rem solid transparent;
     border-bottom: 3rem solid transparent; 
     border-right:3rem solid #bbb; 
-    
 }
 
 .arrowright {
@@ -55,13 +53,11 @@ img {
     margin: auto;
     display: flex;
     justify-content: center;
-   
     width: 0; 
     height: 0; 
     border-top: 3rem solid transparent;
     border-bottom: 3rem solid transparent;
     border-left: 3rem solid #bbb;
-
 }
 
 .memes {
@@ -69,7 +65,6 @@ img {
     width: 100%;
     height: auto;
     background: url(../img/loading.gif) 600% no-repeat;
-    
 }
 
 .memes > img {
@@ -77,105 +72,36 @@ img {
     background: url(../img/loading.gif) 600% no-repeat;
 }
 
-
-
-#footer {
-    background-color: #FFF082;
+.main-footer {
+    background-color: #000;
     margin: auto;
     height: auto;
-    padding: 20px;
     text-align: center;
+    padding: 10px 0;
+    font-size: .8rem;
+    width: 100%;
+    color: #fff;
+
 }
+
 
 .main-footer > p > a {
-    color: #000;
-}
-
-
-/******** NAVIGATION ********/
-
-.overlay {
-    height: 100%;
-    width: 0;
-    position: fixed;
-    z-index: 1;
-    top: 0;
-    left: 0;
-    background-color: rgb(0,0,0);
-    background-color: rgba(0,0,0, 0.9);
-    overflow-x: hidden;
-    transition: 0.5s;
-  }
-  
-  .overlay-content {
-    position: relative;
-    top: 25%;
-    width: 100%;
-    text-align: center;
-    margin-top: 30px;
-  }
-  
-  .overlay a {
-    padding: 8px;
+    color: #FFF;
     text-decoration: none;
-    font-size: 36px;
-    color: #818181;
-    display: block;
-    transition: 0.3s;
-  }
-  
-  .overlay a:hover, .overlay a:focus {
-    color: #f1f1f1;
-  }
-  
-  .overlay .closebtn {
-    position: absolute;
-    top: 20px;
-    right: 45px;
-    font-size: 60px;
-  }
-  
+}
 
-/***** GRID *****/
-
-
-.grid {
-    padding-top: 15px;
+#topheader{
+    display: flex; 
+    flex-direction: column; 
+    align-content: center; 
     box-shadow: 1px 1px 20px 1px black;
-    display: grid;
-    grid-template-columns: repeat(5,1fr);
-    grid-template-rows: repeat(2, auto);
-    grid-template-areas: 
-    ". title title title ."
-    "hamburger . . . icon"
-    ". . . . . "
 }
 
-.title {
-    grid-area: title;
-    align-items: center;
-    justify-self: center;
-    text-transform: uppercase;
-    text-align: center;
-    font-size: .7rem;
+.siteName{
+    display: flex; 
+    justify-content: center;
+    padding: 1.5rem;
 }
-
-.hamburger {
-    grid-area: hamburger;
-    font-size: 2rem;
-    padding: 10px;
-}
-
-.icon {
-    grid-area: icon;
-    align-self: center;
-    display: flex;
-    justify-content: flex-end;
-    padding-right: 10px;
-    
-    
-}
-
 
 .contContainer {
     margin: auto;
@@ -186,10 +112,25 @@ img {
     grid-template-rows: 1fr;
     grid-template-areas: 
     "left memes right"
-
 }
 
+section {
+    width: 60%;
+    margin: .5rem 1rem;
+    color: #000;
+}
 
+hr {
+    padding: 1rem 0;
+    border-right: none;
+    border-left: none;
+    border-top: none;
+}
+
+#topNewsModal {
+    background-color: #fff;
+    color: #000;
+}
 
 /**************** NEWS MODAL *****************/
 
@@ -201,10 +142,10 @@ img {
     z-index: 1; /* Sit on top */
     left: 0;
     top: 0;
-    background-color: rgb(0,0,0);
     padding: 0 3rem;
     overflow-x: hidden;
     transition: 0.5s;
+    color: #fff
   }
 
 /* Modal Content */
@@ -215,9 +156,7 @@ img {
     padding: 20px;
   }
 
-.news-content > section{
-    color: white;
-}
+
 
 /* The Exit Button */
 .exit {
@@ -236,6 +175,8 @@ img {
 
 
 
+
+
 /*************************************************
 MEDIA QUERIES
 **************************************************/
@@ -245,7 +186,44 @@ MEDIA QUERIES
 SMALL  SCREENS
 **************************************************/
 @media screen and (min-width: 320px) and (max-width: 767px) {
+
     
+    section > img {
+        width: 100%;
+    }
+    .popup {
+        padding: 1rem 0;
+    }
+
+    hr {
+         margin: 3px;
+    }
+
+
+    section>h1{
+        font-size: 1rem;
+    }
+    .title {
+        font-size: .8rem;
+        padding: 1rem;
+    }
+    .iconContainer {
+        display: flex;
+        width: 100%;
+        margin: auto;
+    }
+ 
+    #topheader {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        box-shadow: 1px 1px 20px 1px black;
+        align-items: center;
+    }
+    .newsbutton {
+        width: 30%;
+    }
+
     .modal-header {
         text-align: left;
     }
@@ -262,40 +240,70 @@ SMALL  SCREENS
         font-size: .7rem;
     }
 
-    .overlay a {
+    /* .overlay a {
         font-size: 20px;
     }
     .overlay .closebtn {
         font-size: 40px;
         top: 15px;
         right: 35px;
-    }
+    } */
 
     .modal-content{
-        height: 50vh;
+        height: auto;
     }
+        .modal-content {
+            height: 50vh;
+            background-color: #000;
+        }
+    
 
     .arrowleft { 
-        border-top:1.3rem solid transparent;
-        border-bottom: 1.3rem solid transparent; 
-        border-right: 1.3rem solid #bbb; 
+        border-top:1rem solid transparent;
+        border-bottom: 1rem solid transparent; 
+        border-right: 1rem solid #bbb; 
 }
 
     .arrowright {
-        border-top: 1.3rem solid transparent;
-        border-bottom: 1.3rem solid transparent;
-        border-left: 1.3rem solid #bbb;
+        border-top: 1rem solid transparent;
+        border-bottom: 1rem solid transparent;
+        border-left: 1rem solid #bbb;
 
+}
+
+.main-footer {
+    padding: 20px 0;
+}
+
+section > p {
+    font-size: .7rem;
 }
 
  
 }
 
 
+
+
+
 /*************************************************
-LARGER SCREENS
+MEDIUM SCREENS
 **************************************************/
 @media screen and (min-width: 768px) {
+    .modal-content {
+        background-color: lightblue;
+    }
+    .main-footer {
+        background-color: lightblue;
+    }
+    .title {
+        font-size: 1rem;
+    }
+
+    .newsbutton {
+        width: 10%;
+        padding: 1rem;
+    }
 
     .contContainer {
         width: 90%;
@@ -338,6 +346,19 @@ LARGER SCREENS
         padding: 0 4rem;
     }
 
+.arrowleft {
+    border-top:2rem solid transparent;
+    border-bottom: 2rem solid transparent; 
+    border-right: 2rem solid #bbb; 
+}
+
+.arrowright {
+    border-top: 2rem solid transparent;
+    border-bottom: 2rem solid transparent;
+    border-left: 2rem solid #bbb;
+
+}
+
 }
 
 
@@ -361,7 +382,6 @@ LARGER SCREENS
     position: fixed;
     bottom: 0;
     width: 100%;
-    background-color: #000;
     padding: 2rem;
     -webkit-animation-name: slideIn;
     -webkit-animation-duration: 0.4s;
@@ -373,7 +393,6 @@ LARGER SCREENS
 
 .modal-header {
     padding: 2px 16px;
-    background-color: #000;
     color: white;
 }
 
@@ -403,7 +422,6 @@ LARGER SCREENS
 .close:focus {
     color: #000;
     text-decoration: none;
-    cursor: pointer;
 }
 
 
@@ -425,26 +443,33 @@ LARGER SCREENS
     to {opacity: 1}
 }
 
-.LockOn {
-    display: block;
-    visibility: visible;
-    position: fixed;
-    z-index: 999;
-    top: 0px;
-    left: 0px;
-    width: 100vw;
-    height: 100vh;
-    background-color:white;
-    /* padding-top: 20%;  */
-    filter: alpha(opacity=75); 
-    opacity: 0.75; 
-    font-size:large;
-    color:blue;
-    font-style:italic;
-    font-weight:400;
-    background-image: url("../img/loading.gif");
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-position: center;
-}
 
+
+/*************************************************
+LARGER SCREENS
+**************************************************/
+@media screen and (min-width: 1024px) {
+    .news-content {
+        width: 90%;
+    }
+
+    .title {
+        font-size: 1.1rem;
+    }
+
+    .title > h1 {
+        padding: 1.5rem 0;
+    }
+
+    .main-footer,
+    .modal-content,
+    .modal-header { 
+        background-color: pink;
+        color:#000;
+    }
+    .main-footer > p > a {
+        color: #000;
+    }
+
+
+}
